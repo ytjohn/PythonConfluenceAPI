@@ -1,5 +1,6 @@
 from __future__ import absolute_import
 import future.standard_library
+
 future.standard_library.install_aliases()
 
 __author__ = "Robert Cope"
@@ -10,6 +11,7 @@ from requests.auth import HTTPBasicAuth
 from urllib.parse import urljoin
 
 import logging
+
 try:
     import anyjson as json
 except ImportError:
@@ -27,9 +29,9 @@ def all_of(api_call, *args, **kwargs):
     If the `limit` keyword argument is set, it is used to stop the
     generator after the given number of result items.
 
-    >>> for i, v in enumerate(all_of(api.get_content)):
-    >>>     v = bunchify(v)
-    >>>     print('\t'.join((str(i), v.type, v.id, v.status, v.title)))
+      for i, v in enumerate(all_of(api.get_content)):
+        v = bunchify(v)
+        print('\t'.join((str(i), v.type, v.id, v.status, v.title)))
 
     :param api_call: Confluence API call (method).
     :param args: Positional arguments of the call.
@@ -44,7 +46,6 @@ def all_of(api_call, *args, **kwargs):
             if pos > outer_limit:
                 return
             yield item
-        ##print((pos, response['start'], response['limit']))
         if response.get('_links', {}).get('next', None):
             kwargs['start'] = response['start'] + response['size']
             kwargs['limit'] = response['limit']
@@ -832,8 +833,8 @@ class ConfluenceAPI(object):
         assert isinstance(label_names, list)
         assert all(isinstance(ln, dict) and set(ln.keys()) == {"prefix", "name"} for ln in label_names)
         return self._service_post_request("rest/api/content/{id}/label".format(id=content_id),
-                                         data=json.dumps(label_names), headers={"Content-Type": "application/json"},
-                                         callback=callback)
+                                          data=json.dumps(label_names), headers={"Content-Type": "application/json"},
+                                          callback=callback)
 
     def create_new_property(self, content_id, property_key, new_property_data, callback=None):
         """

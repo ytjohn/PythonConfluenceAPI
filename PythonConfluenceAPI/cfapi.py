@@ -27,6 +27,7 @@ def request_patch(self, *args, **kwargs):
         def wrap(*args_, **kwargs_):
             resp = sup(*args_, **kwargs_)
             # Patch the closure to return the callback.
+            # noinspection PyCallingNonCallable
             return background_callback(self, resp)
 
         func = wrap
