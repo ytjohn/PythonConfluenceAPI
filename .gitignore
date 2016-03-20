@@ -43,6 +43,9 @@ nosetests.xml
 coverage.xml
 *,cover
 
+# Vagrant
+.vagrant/
+
 # Translations
 *.mo
 *.pot
